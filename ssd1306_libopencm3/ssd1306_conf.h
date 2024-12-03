@@ -36,6 +36,12 @@
 #define SSD1306_Reset_Port      GPIOA
 #define SSD1306_Reset_Pin       GPIO6
 
+// not used on library code but useful for organization
+#define SSD1306_Mosi_Port       GPIOA   
+#define SSD1306_Mosi_Pin        GPIO7
+#define SSD1306_Clk_Port        GPIOA
+#define SSD1306_Clk_Pin         GPIO5
+
 // Mirror the screen if needed
 // #define SSD1306_MIRROR_VERT
 // #define SSD1306_MIRROR_HORIZ
