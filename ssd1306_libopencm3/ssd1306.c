@@ -98,7 +98,7 @@ void ssd1306_Init(void) {
     ssd1306_Reset();
 
     // Wait for the screen to boot
-    HAL_Delay(100);
+    delay_ms(100);
 
     // Init OLED
     ssd1306_SetDisplayOn(0); //display off
