@@ -31,4 +31,5 @@ for STM32f1.
 		return 0;
 	}
 ```
-	Code based on [stm32-ssd1306](https://github.com/afiskon/stm32-ssd1306).
+	
+ Code based on [stm32-ssd1306](https://github.com/afiskon/stm32-ssd1306).
