@@ -1,17 +1,9 @@
 # SSD1306 libopencm3
 
-<<<<<<< HEAD
 Library to use any ssd1306 oled display with stm32 using [libopencm3](https://github.com/libopencm3/libopencm3). 
 Tested on STM32f1x and 128x64 SPI oled for now.
 ### Getting started
-1. Change 'ssd1306_conf.h' to your needs, the actual code work with SPI1
-=======
-Library to use any i2c/spi ssd1306 oled display with stm32 using libopencm3. 
-Tested on STM32f1x.
-### Getting started
-1 . Change 'ssd1306_conf.h' to your needs, the actual code work with SPI
->>>>>>> 3db7523 (readme stuff)
-for STM32f1.
+1. Change 'ssd1306_conf.h' to your needs, the actual code work with SPI1 and STM32f1.
 
 
 2. After initializing SPI/I2c and pins the code is very straight foward:
