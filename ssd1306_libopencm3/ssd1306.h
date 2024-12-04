@@ -21,7 +21,6 @@ _BEGIN_STD_C
 #if defined(STM32F1)
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/gpio.h>
-#include <libopencm3/stm32/spi.h>
 #elif defined(STM32F4)
 #error "stm32f4 not implemented yet
 #else
@@ -88,9 +87,12 @@ _BEGIN_STD_C
 /* ^^^ SPI config ^^^ */
 
 #if defined(SSD1306_USE_I2C)
-extern I2C_HandleTypeDef SSD1306_I2C_PORT;
+//xtern I2C_HandleTypeDef SSD1306_I2C_PORT;
+    #include <libopencm3/stm32/i2c.h>
 #elif defined(SSD1306_USE_SPI)
 //extern SPI_HandleTypeDef SSD1306_SPI_PORT;
+    #include <libopencm3/stm32/spi.h>
+
 #else
 #error "You should define SSD1306_USE_SPI or SSD1306_USE_I2C macro!"
 #endif

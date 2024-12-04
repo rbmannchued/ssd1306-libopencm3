@@ -12,21 +12,37 @@ void ssd1306_Reset(void) {
 // Send a byte to the command register
 void ssd1306_WriteCommand(uint8_t byte) {
    // HAL_I2C_Mem_Write(&SSD1306_I2C_PORT, SSD1306_I2C_ADDR, 0x00, 1, &byte, 1, HAL_MAX_DELAY);
+    uint8_t data[2] = {0x00, byte};  // 0x00 indica um comando
+    i2c_transfer7(SSD1306_I2C_PORT, SSD1306_I2C_ADDR, data, 2, NULL, 0);
+
+}
+void ssd1306_WriteData(uint8_t byte) {
+    uint8_t buf[2] = {0x40, byte};  // 0x40 indica dados
+    i2c_transfer7(SSD1306_I2C_PORT, SSD1306_I2C_ADDR, buf, 2, NULL, 0);
 }
 
 // Send data
-void ssd1306_WriteData(uint8_t* buffer, size_t buff_size) {
+void ssd1306_WriteDataBuff(uint8_t* buffer, size_t buff_size) {
     //HAL_I2C_Mem_Write(&SSD1306_I2C_PORT, SSD1306_I2C_ADDR, 0x40, 1, buffer, buff_size, HAL_MAX_DELAY);
+    uint8_t data[buff_size + 1];
+    
+    // O primeiro byte deve ser 0x40 para indicar que os seguintes são dados
+    data[0] = 0x40;
+
+    // Copia o buffer de dados para o array de envio
+    for (size_t i = 0; i < buff_size; i++) {
+        data[i + 1] = buffer[i];
+    }
+
+    // Envia o buffer via I2C
+    i2c_transfer7(SSD1306_I2C_PORT, SSD1306_I2C_ADDR, data, buff_size + 1, NULL, 0);
+
 }
 
 
 #elif defined(SSD1306_USE_SPI)
 
-void delay_ms(uint32_t ms) {
-    for (uint32_t i = 0; i < ms * 8000; i++) {
-        __asm__("nop");
-    }
-}
+
 
 void ssd1306_Reset(void) {
     // CS = High (not selected)
@@ -74,6 +90,11 @@ void ssd1306_WriteDataBuff(uint8_t* buffer, size_t buff_size) {
 #else
 #error "You should define SSD1306_USE_SPI or SSD1306_USE_I2C macro"
 #endif
+void delay_ms(uint32_t ms) {
+    for (uint32_t i = 0; i < ms * 8000; i++) {
+        __asm__("nop");
+    }
+}
 
 
 // Screenbuffer
