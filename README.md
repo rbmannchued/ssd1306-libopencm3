@@ -2,12 +2,12 @@
 
 Library to use any ssd1306 oled display with stm32 using libopencm3. 
 Tested on STM32f1x and 128x64 SPI oled for now.
-### Start
-Change 'ssd1306_conf.h' to your needs, the actual code work with SPI1
+### Getting started
+1 . Change 'ssd1306_conf.h' to your needs, the actual code work with SPI1
 for STM32f1.
 
-### Coding
-After initializing SPI and pins the code is very straight foward:
+
+2. After initializing SPI and pins the code is very straight foward:
 
 ```c
 	#include <ssd1306.h>
@@ -30,4 +30,5 @@ After initializing SPI and pins the code is very straight foward:
 		}
 		return 0;
 	}
-	```
+```
+	Code based on [stm32-ssd1306](https://github.com/afiskon/stm32-ssd1306).
