@@ -11,7 +11,6 @@ void ssd1306_Reset(void) {
 
 // Send a byte to the command register
 void ssd1306_WriteCommand(uint8_t byte) {
-   // HAL_I2C_Mem_Write(&SSD1306_I2C_PORT, SSD1306_I2C_ADDR, 0x00, 1, &byte, 1, HAL_MAX_DELAY);
     uint8_t data[2] = {0x00, byte};  // 0x00 indica um comando
     i2c_transfer7(SSD1306_I2C_PORT, SSD1306_I2C_ADDR, data, 2, NULL, 0);
 
@@ -23,7 +22,6 @@ void ssd1306_WriteData(uint8_t byte) {
 
 // Send data
 void ssd1306_WriteDataBuff(uint8_t* buffer, size_t buff_size) {
-    //HAL_I2C_Mem_Write(&SSD1306_I2C_PORT, SSD1306_I2C_ADDR, 0x40, 1, buffer, buff_size, HAL_MAX_DELAY);
     uint8_t data[buff_size + 1];
     
     // O primeiro byte deve ser 0x40 para indicar que os seguintes são dados
