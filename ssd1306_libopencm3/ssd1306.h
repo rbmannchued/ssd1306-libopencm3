@@ -1,8 +1,7 @@
-/**
+    /**
  * This Library was originally written by Olivier Van den Eede (4ilo) in 2016.
  * Some refactoring was done and SPI support was added by Aleksander Alekseev (afiskon) in 2018.
- *
- * https://github.com/afiskon/stm32-ssd1306
+ * libopencm3 version by Rafael Bormann Chuede(rbmannchued)
  */
 
 #ifndef __SSD1306_H__
@@ -21,6 +20,8 @@ _BEGIN_STD_C
 #if defined(STM32F1)
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/gpio.h>
+#include <libopencm3/cm3/systick.h>
+
 #elif defined(STM32F4)
 #error "stm32f4 not implemented yet
 #else

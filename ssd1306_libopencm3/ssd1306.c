@@ -24,15 +24,16 @@ void ssd1306_WriteData(uint8_t byte) {
 void ssd1306_WriteDataBuff(uint8_t* buffer, size_t buff_size) {
     uint8_t data[buff_size + 1];
     
-    // O primeiro byte deve ser 0x40 para indicar que os seguintes são dados
+    //first byte must be 0x40 to indicate that the following are data
     data[0] = 0x40;
 
-    // Copia o buffer de dados para o array de envio
+
+    // copies the data buffer to the send array
     for (size_t i = 0; i < buff_size; i++) {
         data[i + 1] = buffer[i];
     }
 
-    // Envia o buffer via I2C
+    // sends buffer via I2C
     i2c_transfer7(SSD1306_I2C_PORT, SSD1306_I2C_ADDR, data, buff_size + 1, NULL, 0);
 
 }
@@ -88,12 +89,38 @@ void ssd1306_WriteDataBuff(uint8_t* buffer, size_t buff_size) {
 #else
 #error "You should define SSD1306_USE_SPI or SSD1306_USE_I2C macro"
 #endif
+volatile uint32_t systick_counter = 0;
+
+
+//configs Systick to generate interrupts every 1ms
+void systick_setup(void) {
+    uint32_t ahb_frequency = rcc_ahb_frequency; // AHB frequency configured by rcc
+
+
+    systick_set_clocksource(STK_CSR_CLKSOURCE_AHB_DIV8);
+
+    
+    //calculates the reload value to generate interrupts every 1ms
+    uint32_t reload_value = (ahb_frequency / 8 / 1000) - 1;
+    systick_set_reload(reload_value);
+
+    // enable the systick interruption and the counter 
+    systick_interrupt_enable();
+    systick_counter_enable();
+}
+
+// interruption SysTick handler
+void sys_tick_handler(void) {
+    systick_counter++;
+}
+
+// delay main func
 void delay_ms(uint32_t ms) {
-    for (uint32_t i = 0; i < ms * 8000; i++) {
+    uint32_t target = systick_counter + ms;
+    while (systick_counter < target) {
         __asm__("nop");
     }
 }
-
 
 // Screenbuffer
 static uint8_t SSD1306_Buffer[SSD1306_BUFFER_SIZE];
@@ -113,6 +140,7 @@ SSD1306_Error_t ssd1306_FillBuffer(uint8_t* buf, uint32_t len) {
 
 /* Initialize the oled screen */
 void ssd1306_Init(void) {
+    systick_setup();
     // Reset OLED
     ssd1306_Reset();
 
