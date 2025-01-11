@@ -23,7 +23,10 @@ _BEGIN_STD_C
 #include <libopencm3/cm3/systick.h>
 
 #elif defined(STM32F4)
-#error "stm32f4 not implemented yet
+#include <libopencm3/stm32/rcc.h>
+#include <libopencm3/stm32/gpio.h>
+#include <libopencm3/cm3/systick.h>
+
 #else
 #error "SSD1306 library was tested only on STM32F1"
 #endif
