@@ -1,7 +1,7 @@
 # SSD1306 libopencm3
 
-Library to use any ssd1306 oled display with stm32 using [libopencm3](https://github.com/libopencm3/libopencm3). 
-Tested on STM32f1x and 128x64 oled for now.
+Library to use any ssd1306 oled display with stm32 using [libopencm3](https://github.com/libopencm3/libopencm3). \
+Supports stm32f1 and stm32f4, feel free to change the code for your specific board and do not forget to do a PR for any improvements.
 ### Getting started
 1. Change 'ssd1306_conf.h' to your needs, the actual code work with SPI1 and STM32f1.
 
@@ -9,11 +9,11 @@ Tested on STM32f1x and 128x64 oled for now.
 2. After initializing SPI/I2c and pins the code is very straight foward:
 
 ```c
-	#include <ssd1306.h>
-	#include <ssd1306_fonts.h>
+	#include "ssd1306.h"
+	#include "ssd1306_fonts.h"
 	
 	void periphInit(){ 
-		//initialize the peripherals and pins (see example)
+		//initialize the peripherals and pins (see examples folder)
 	}
 	
 	int main(){
